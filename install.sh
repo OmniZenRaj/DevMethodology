@@ -9,6 +9,8 @@
 #   ./install.sh --extensions    also install the core VS Code extensions
 #   ./install.sh --patch         also patch the Claude Code extension (keeps its terminal open after /exit)
 #   ./install.sh --all           all of the above
+#   ./install.sh --extra <dir>   also link skills, agents and commands from another kit
+#                                folder with the same layout (repeatable), e.g. a work repo
 #   ./install.sh --dry-run ...   show what would change, change nothing
 #
 # Existing files are never overwritten. A target that already exists and is not
@@ -16,15 +18,20 @@
 set -euo pipefail
 
 KIT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DRY=0; VSCODE=0; EXT=0; PATCH=0
-for a in "$@"; do
+DRY=0; VSCODE=0; EXT=0; PATCH=0; EXTRAS=()
+while [ $# -gt 0 ]; do
+  a="$1"; shift
   case "$a" in
     --dry-run) DRY=1 ;;
     --vscode) VSCODE=1 ;;
     --extensions) EXT=1 ;;
     --patch) PATCH=1 ;;
     --all) VSCODE=1; EXT=1; PATCH=1 ;;
-    -h|--help) sed -n '2,16p' "$0"; exit 0 ;;
+    --extra)
+      [ $# -gt 0 ] || { echo "--extra needs a folder" >&2; exit 2; }
+      [ -d "$1" ] || { echo "Not a folder: $1" >&2; exit 2; }
+      EXTRAS+=("$(cd "$1" && pwd)"); shift ;;
+    -h|--help) sed -n '2,18p' "$0"; exit 0 ;;
     *) echo "Unknown option: $a" >&2; exit 2 ;;
   esac
 done
@@ -49,19 +56,24 @@ echo "Kit: $KIT"
 echo; echo "Kit home"
 link "$KIT" "$HOME/.devmethodology"
 
-echo; echo "Claude Code"
-for s in "$KIT"/skills/*/; do s="${s%/}"; link "$s" "$HOME/.claude/skills/$(basename "$s")"; done
-for f in "$KIT"/agents/*.md; do link "$f" "$HOME/.claude/agents/$(basename "$f")"; done
-for f in "$KIT"/commands/*.md; do link "$f" "$HOME/.claude/commands/$(basename "$f")"; done
+install_from() {  # install_from <kit folder>
+  local src="$1"
+  echo; echo "Claude Code ($src)"
+  for s in "$src"/skills/*/; do [ -d "$s" ] || continue; s="${s%/}"; link "$s" "$HOME/.claude/skills/$(basename "$s")"; done
+  for f in "$src"/agents/*.md; do [ -e "$f" ] || continue; link "$f" "$HOME/.claude/agents/$(basename "$f")"; done
+  for f in "$src"/commands/*.md; do [ -e "$f" ] || continue; link "$f" "$HOME/.claude/commands/$(basename "$f")"; done
+  echo; echo "Other agent tools ($src; only folders that already exist)"
+  for dir in "$HOME/.codex/skills" "$HOME/.agents/skills" "$HOME/.cursor/skills"; do
+    if [ -d "$dir" ]; then
+      for s in "$src"/skills/*/; do [ -d "$s" ] || continue; s="${s%/}"; link "$s" "$dir/$(basename "$s")"; done
+    else
+      echo "  none    $dir (tool not set up; create the folder and re-run to link)"
+    fi
+  done
+}
 
-echo; echo "Other agent tools (only folders that already exist)"
-for dir in "$HOME/.codex/skills" "$HOME/.agents/skills" "$HOME/.cursor/skills"; do
-  if [ -d "$dir" ]; then
-    for s in "$KIT"/skills/*/; do s="${s%/}"; link "$s" "$dir/$(basename "$s")"; done
-  else
-    echo "  none    $dir (tool not set up; create the folder and re-run to link)"
-  fi
-done
+install_from "$KIT"
+for x in ${EXTRAS[@]+"${EXTRAS[@]}"}; do install_from "$x"; done
 
 echo; echo "Scripts"
 link "$KIT/scripts/patch-claude-vscode" "$HOME/.local/bin/patch-claude-vscode"

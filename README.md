@@ -29,6 +29,7 @@ Tiers only go up automatically. Only a person can lower one.
 | `patterns/PatternsLibrary.md` | The pattern library used for stamps |
 | `scripts/review_tools.py` | Lints and renders the peer-review document |
 | `templates/ProjectAGENTS.md` | A starting `AGENTS.md` for a project that uses the method |
+| `templates/work-skills/` | Placeholder skills for an employer's own git flow, Jira, Kubernetes test clusters, uv and `just` recipes |
 | `vscode/` | Settings, keybindings and extension list |
 | `scripts/claude-code.command` | Terminal launcher that returns to a shell when Claude Code exits |
 | `scripts/patch-claude-vscode` | Keeps the Claude Code extension's terminal open after `/exit` |
@@ -41,6 +42,7 @@ cd ~/DEV/DevMethodology
 ./install.sh --dry-run --all   # see what would change
 ./install.sh                   # skills, agent, command and scripts
 ./install.sh --vscode          # merge VS Code settings and keybindings
+./install.sh --extra ~/work/work-skills   # also link a second skills folder
 ```
 
 The installer links one copy of each skill into `~/.claude/skills/`, and into `~/.codex/skills/`, `~/.agents/skills/` and `~/.cursor/skills/` when those folders exist. Edit a skill once and every tool sees the change. Existing files are never overwritten.
@@ -52,6 +54,17 @@ ln -s AGENTS.md CLAUDE.md
 ```
 
 Claude Code reads `CLAUDE.md`. Codex, Cursor and most other agent tools read `AGENTS.md`.
+
+## Work-specific skills
+
+`templates/work-skills/` holds placeholder skills for how one organisation works. Copy the folder into a repository your employer owns, fill it in from the team's docs, and install it alongside this kit with `--extra`. See its README.
+
+## Recommended plugins
+
+These come from their publishers, so they are not copied here. Install them in Claude Code to get the latest versions:
+
+- Anthropic's `feature-dev` plugin, for its `code-explorer`, `code-architect` and `code-reviewer` agents: `/plugin install feature-dev@claude-plugins-official`
+- `superpowers`, for planning, test-driven development, systematic debugging and verification before completion: `/plugin install superpowers@claude-plugins-official`
 
 ## Models
 
