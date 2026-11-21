@@ -1,0 +1,25 @@
+# Core
+anthropic.claude-code
+eamodio.gitlens
+ms-python.python
+ms-python.vscode-pylance
+ms-python.debugpy
+ms-python.vscode-python-envs
+charliermarsh.ruff
+davidanson.vscode-markdownlint
+redhat.vscode-yaml
+esbenp.prettier-vscode
+usernamehw.errorlens
+semanticdiff.semanticdiff
+tomoki1207.pdf
+yzane.markdown-pdf
+akamud.vscode-theme-onedark
+github.github-vscode-theme
+# Optional (uncomment by need; check the employer's allowlist first)
+# vscjava.vscode-java-pack
+# redhat.java
+# ms-dotnettools.csdevkit
+# ms-dotnettools.csharp
+# ms-azuretools.vscode-containers
+# ms-toolsai.jupyter
+# contextmapper.context-mapper-vscode-extension

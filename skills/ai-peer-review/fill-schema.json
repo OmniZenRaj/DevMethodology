@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ai-peer-review fill",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rating",
+    "signal",
+    "bottom_line",
+    "design_rating",
+    "design_ids",
+    "safety_rating",
+    "safety_ids",
+    "correctness_rating",
+    "correctness_ids",
+    "integration_rating",
+    "integration_ids",
+    "patterns_rating",
+    "patterns_ids",
+    "ddd_rating",
+    "ddd_ids",
+    "testing_rating",
+    "testing_ids",
+    "scope_rating",
+    "scope_ids",
+    "files_read",
+    "findings",
+    "strengths"
+  ],
+  "properties": {
+    "rating": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^(🚀|☑️|🚧|⛔)[^|\\r\\n]*$"
+    },
+    "signal": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "bottom_line": {
+      "type": "string",
+      "minLength": 1
+    },
+    "design_rating": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "design_ids": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "safety_rating": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "safety_ids": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "correctness_rating": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "correctness_ids": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "integration_rating": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "integration_ids": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "patterns_rating": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "patterns_ids": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "ddd_rating": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "ddd_ids": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "testing_rating": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "testing_ids": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "scope_rating": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "scope_ids": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "files_read": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[^|\\r\\n]*$"
+    },
+    "findings": {
+      "type": "string",
+      "minLength": 1
+    },
+    "strengths": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
