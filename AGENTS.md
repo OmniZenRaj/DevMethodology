@@ -4,7 +4,7 @@ This repository packages a spec-first development method as Claude Code skills, 
 
 ## Working on this repository
 
-- Keep every file generic. No product names, client names, personal names, email addresses or machine paths.
+- Keep every file generic. No product names, client names, personal names, email addresses or machine paths, apart from the copyright holder in LICENSE.
 - Skills must work with any capable model. Do not pin a model in a skill's frontmatter.
 - Test the review script with `python3 -m pytest -q tests`.
 - Check the installer with `./install.sh --dry-run --all` before committing changes to it.

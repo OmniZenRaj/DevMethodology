@@ -73,3 +73,7 @@ The skills work with any capable model. The QC agent asks for Opus. The cross-ve
 ## Workplace use
 
 On an employer's machine, the employer's policies come first. Check extensions against the allowlist, use only approved model vendors, and ask before running `--patch`, which edits an installed extension.
+
+## Licence
+
+MIT, see [LICENSE](LICENSE). `patterns/PatternsLibrary.md` restates patterns from published catalogs and keeps its own CC BY 4.0 notice and source attributions.
