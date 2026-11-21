@@ -7,6 +7,7 @@
 #   ./install.sh                 link skills, agent, command, scripts (default)
 #   ./install.sh --vscode        also merge VS Code settings and keybindings
 #   ./install.sh --extensions    also install the core VS Code extensions
+#   ./install.sh --patch         also patch the Claude Code extension (keeps its terminal open after /exit)
 #   ./install.sh --all           all of the above
 #   ./install.sh --dry-run ...   show what would change, change nothing
 #
@@ -15,14 +16,15 @@
 set -euo pipefail
 
 KIT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DRY=0; VSCODE=0; EXT=0
+DRY=0; VSCODE=0; EXT=0; PATCH=0
 for a in "$@"; do
   case "$a" in
     --dry-run) DRY=1 ;;
     --vscode) VSCODE=1 ;;
     --extensions) EXT=1 ;;
-    --all) VSCODE=1; EXT=1 ;;
-    -h|--help) sed -n '2,15p' "$0"; exit 0 ;;
+    --patch) PATCH=1 ;;
+    --all) VSCODE=1; EXT=1; PATCH=1 ;;
+    -h|--help) sed -n '2,16p' "$0"; exit 0 ;;
     *) echo "Unknown option: $a" >&2; exit 2 ;;
   esac
 done
@@ -62,6 +64,7 @@ for dir in "$HOME/.codex/skills" "$HOME/.agents/skills" "$HOME/.cursor/skills"; 
 done
 
 echo; echo "Scripts"
+link "$KIT/scripts/patch-claude-vscode" "$HOME/.local/bin/patch-claude-vscode"
 link "$KIT/scripts/claude-code.command" "$HOME/Applications/Claude Code.command"
 
 VSU="$HOME/Library/Application Support/Code/User"
@@ -125,6 +128,12 @@ if [ "$EXT" = 1 ]; then
       else run code --install-extension "$id" >/dev/null && echo "  added   $id"; fi
     done
   fi
+fi
+
+if [ "$PATCH" = 1 ]; then
+  echo; echo "Claude Code extension patch"
+  run python3 "$KIT/scripts/patch-claude-vscode"
+  echo "  Reload the VS Code window afterwards. Re-run after every Claude Code extension update."
 fi
 
 echo; echo "Done. Restart Claude Code (and reload VS Code) to pick up the changes."

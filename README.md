@@ -1,6 +1,6 @@
 # Dev Methodology
 
-A spec-first method for building software with AI coding agents: Claude Code skills, a QC agent and cross-vendor review, with a VS Code setup to match.
+A spec-first method for building software with AI coding agents, packaged as Claude Code skills, a QC agent and a commit command, with a VS Code setup to match.
 
 ## The method
 
@@ -31,6 +31,7 @@ Tiers only go up automatically. Only a person can lower one.
 | `templates/ProjectAGENTS.md` | A starting `AGENTS.md` for a project that uses the method |
 | `vscode/` | Settings, keybindings and extension list |
 | `scripts/claude-code.command` | Terminal launcher that returns to a shell when Claude Code exits |
+| `scripts/patch-claude-vscode` | Keeps the Claude Code extension's terminal open after `/exit` |
 
 ## Install
 
@@ -58,4 +59,4 @@ The skills work with any capable model. The QC agent asks for Opus. The cross-ve
 
 ## Workplace use
 
-On an employer's machine, the employer's policies come first. Check extensions against the allowlist and use only approved model vendors.
+On an employer's machine, the employer's policies come first. Check extensions against the allowlist, use only approved model vendors, and ask before running `--patch`, which edits an installed extension.
